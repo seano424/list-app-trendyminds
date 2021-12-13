@@ -6,7 +6,6 @@ import ListForm from '../components/ListForm'
 
 export default function Home() {
   const { state } = useContext(ListContext)
-
   return (
     <div className="min-h-screen flex flex-col p-10 lg:px-40 xl:px-80">
       <Head>

@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useMemo } from 'react'
+import React, { useReducer, createContext, useMemo, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 export const ListContext = createContext()
@@ -45,9 +45,30 @@ const reducer = (state, action) => {
   }
 }
 
-export const ListProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+function setLocalStorage(key, value) {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value))
+  } catch (e) {
+    console.log(e)
+  }
+}
 
+function getLocalStorage(key, initialValue) {
+  try {
+    const value = window.localStorage.getItem(key)
+    return value ? JSON.parse(value) : initialValue
+  } catch (e) {
+    // if error, return initial value
+    return initialValue
+  }
+}
+
+export const ListProvider = ({ children }) => {
+  const items = getLocalStorage('items', initialState)
+  const [state, dispatch] = useReducer(reducer, items)
+  useEffect(() => {
+    setLocalStorage('items', state)
+  }, [state])
   const contextValue = useMemo(() => {
     return { state, dispatch }
   }, [state, dispatch])

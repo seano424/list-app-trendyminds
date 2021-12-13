@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from 'uuid'
 function ListForm() {
   const [value, setValue] = useState('')
   const { dispatch } = useContext(ListContext)
+
+  // Add to the List...
   const handleSubmit = (e) => {
     e.preventDefault()
     const newItem = { id: uuidv4(), text: value, list: 1 }

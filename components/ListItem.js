@@ -11,10 +11,13 @@ import {
 
 function ListItem({ item, listOne }) {
   const { dispatch } = useContext(ListContext)
+
+  // Delete from the list...
   const handleDelete = (id) => {
     dispatch({ type: ACTIONS.DELETE, payload: id })
   }
 
+  // Update the side of the list item...
   const handleMove = (id) => {
     dispatch({ type: ACTIONS.UPDATE, payload: id })
   }
