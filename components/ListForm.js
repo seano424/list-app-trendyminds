@@ -10,7 +10,8 @@ function ListForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     const newItem = { id: uuidv4(), text: value, list: 1 }
-    dispatch({ type: ACTIONS.ADD, payload: newItem })
+    value && dispatch({ type: ACTIONS.ADD, payload: newItem })
+    setValue('')
   }
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">
